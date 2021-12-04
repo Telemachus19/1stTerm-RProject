@@ -1,15 +1,10 @@
 # 1stTerm-RProject
 ## hello world
-## Ahmed Ashraf
-## Antonouse Gerges
-## Abdelrhman Mohamed 
+---------
 
-- [ ] Task # 1
+- Ahmed Ashraf
+- Antonouse Gerges
+- Abdelrhman Mohamed 
 
-# Hello World
-
-ay haga
-ay hagateen 
-Team name:..........................
 
 --------
