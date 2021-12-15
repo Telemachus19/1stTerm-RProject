@@ -2,7 +2,7 @@
 ## hello world
 ---------
 
-- [Ahmed Ashraf](ahmedashraf20212324@gmail.com)
+- Ahmed Ashraf
 - Antonouse Gerges
 - Abdelrhman Mohamed 
 
