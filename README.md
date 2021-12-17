@@ -2,11 +2,11 @@
 
 ### Ahmed's Tasks
 
-- [ ] Placeholder
+- [ ] implement Apriori's Algorithm
 
 ### Abdelrahman's Tasks
 
-- [x] Placeholder
+- [ ] Implement K-means Algorithm
 
 ### Tony's Tasks
 
