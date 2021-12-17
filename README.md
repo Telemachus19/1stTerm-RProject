@@ -1,7 +1,3 @@
----
-title: "Rproject Tasks"
----
-
 ## Tasks
 
 ### Ahmed's Tasks
