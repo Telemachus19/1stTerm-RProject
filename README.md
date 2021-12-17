@@ -1,14 +1,17 @@
-# 1stTerm-RProject
+---
+title: "Rproject Tasks"
+---
 
 ## Tasks
 
-### 
-- [ ] 
----------
+### Ahmed's Tasks
 
-- Ahmed Ashraf
-- Antonouse Gerges
-- Abdelrhman Mohamed 
+- [ ] Placeholder
 
+### Abdelrahman's Tasks
 
---------
+- [ ] Placeholder
+
+### Tony's Tasks
+
+- [ ] Placeholder
