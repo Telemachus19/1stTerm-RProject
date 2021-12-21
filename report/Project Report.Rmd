@@ -65,9 +65,14 @@ ggplot(
   ggtitle("Comparing cash and creadit total using box plot")
 ```
 
+### Observations
+
+After brief moments of seeing the figure, it is quite easy to see that people nearly equally pay with Cash or credit money. 
+
+
 ## Compare each age and sum of total spending.
 
-```{r Compare each age and sum of total spending}
+```{r Compare each age and sum of total spending,  out.width=c('50%', '50%'), fig.show='hold'}
 grc_age <- select(grc,age,total)
 grc_age <- group_by(grc_age, age)
 grc_age <- summarise(grc_age,totalSpending = sum(total))
@@ -88,6 +93,10 @@ ggplot(
   ggtitle("Comparing age and the total spending using bar Plot")
 
 ```
+
+### Observations
+
+After seeing both figures, it is easy to conclude that total spending of people aged (37,55 and 22) is higher than the rest of age groups. However, we cannot come to a reasonable explanation for this behavior.
 
 # Generating of association rules
 
@@ -111,5 +120,7 @@ min_conf <- as.numeric(readline("Enter the minimum Confidance : "))
 apriori_rules <- apriori(
   tdata,
   parameter = list(supp = min_support, conf = min_conf, minlen = 2))
-inspect(apriori_rules,linebreak = T)
+# Displaying first 100 rows of the rules
+as_tibble(DATAFRAME(apriori_rules,separate = TRUE, setStart = "", setEnd = "")) %>%
+  print(n = 100, width = 90)
 ```

@@ -49,7 +49,6 @@ ggplot(
   coord_flip() +
   theme_ipsum() +
   ggtitle("Comparing age and the total spending using bar Plot")
-
 # Association Rules
 ## Preparing the data for generating the association rules
 tdata<-strsplit(as.vector(grc$items), ',')
@@ -60,4 +59,5 @@ min_conf <- as.numeric(readline("Enter the conf support : "))
 ## implementing the algorithm
 apriori_rules <- apriori(tdata, parameter = list(supp = min_support, conf = min_conf, minlen = 2))
 ## displaying the result
-inspect(apriori_rules, linebreak = TRUE)
+as_tibble(DATAFRAME(apriori_rules,separate = TRUE, setStart = "", setEnd = "")) %>%
+  print(n = 100, width = 90)
