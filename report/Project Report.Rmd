@@ -76,9 +76,16 @@ ggplot(
   aes(x = age, y = totalSpending)) + 
   geom_line( color="gray") +
   geom_point(shape=21, color="black", fill="#69b3a2", size=6) +
-  theme_ipsum()
+  theme_ipsum() + 
+  ggtitle("Comparing age and the total spending using line plot")
 grc_age <- mutate(grc_age,age = fct_reorder(as.factor(age),totalSpending))
-ggplot(grc_age,aes(x = age, y = totalSpending)) + geom_col() + coord_flip() +theme_ipsum()
+ggplot(
+  grc_age,
+  aes(x = age, y = totalSpending)) +
+  geom_col() +
+  coord_flip() +
+  theme_ipsum() +
+  ggtitle("Comparing age and the total spending using bar Plot")
 
 ```
 
