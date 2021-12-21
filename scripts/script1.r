@@ -10,9 +10,9 @@ library(hrbrthemes)
 library(forcats)
 ## Getting the data
 dataPath <- readline("Enter the path to the data set : ")
-grc <- as_tibble(read.csv("D:/RProjects/1stTerm-RProject/dataset/grc.csv",stringsAsFactors = FALSE))
+grc <- as_tibble(read.csv(dataPath,stringsAsFactors = FALSE))
 ## displaying first 10 rows of our data
-print(grc, n = 5,width = 120)
+print(grc, n = 10,width = 80)
 
 # Visualizing our Data
 ## Comparison between cash and credit total spending using box plot
@@ -39,15 +39,25 @@ ggplot(
   aes(x = age, y = totalSpending)) + 
   geom_line( color="gray") +
   geom_point(shape=21, color="black", fill="#69b3a2", size=6) +
-  theme_ipsum()
+  theme_ipsum() + 
+  ggtitle("Comparing age and the total spending using line plot")
 grc_age <- mutate(grc_age,age = fct_reorder(as.factor(age),totalSpending))
-ggplot(grc_age,aes(x = age, y = totalSpending)) + geom_col() + coord_flip() +theme_ipsum()
+ggplot(
+  grc_age,
+  aes(x = age, y = totalSpending)) +
+  geom_col() +
+  coord_flip() +
+  theme_ipsum() +
+  ggtitle("Comparing age and the total spending using bar Plot")
 
 # Association Rules
 ## Preparing the data for generating the association rules
 tdata<-strsplit(as.vector(grc$items), ',')
 tdata <- transactions(tdata)
+## Getting the minimum support and minimum confidence from the user
 min_support <- as.numeric(readline("Enter the minimum support : "))
 min_conf <- as.numeric(readline("Enter the conf support : "))
+## implementing the algorithm
 apriori_rules <- apriori(tdata, parameter = list(supp = min_support, conf = min_conf, minlen = 2))
-inspect(apriori_rules)
+## displaying the result
+inspect(apriori_rules, linebreak = TRUE)
