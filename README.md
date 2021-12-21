@@ -2,19 +2,19 @@
 
 ### Ahmed's Tasks
 
-- [ ] Data Processing and cleaning
-- [ ] implement Apriori's Algorithm
-- [ ] Data viz
-  - [ ]  Part 3
-  - [ ]  part 4
+- [x] Data Processing and cleaning
+- [x] implement Apriori's Algorithm
+- [x] Data viz
+  - [x]  Part 1
+  - [x]  part 2
 
 
 ### Abdelrahman's Tasks
 
 - [ ] Implement K-means Algorithm
 - [ ] Data viz
-  - [ ]  Part 1
-  - [ ]  part 2
+  - [ ]  Part 3
+  - [ ]  part 4
 
 ### Tony's Tasks
 
