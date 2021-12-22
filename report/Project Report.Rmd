@@ -45,12 +45,15 @@ print(grc,n = 10, width = 80)
 ```
 ## Preparing the data for k-means and apriori algorithms
 ```{r Preparing the data for k-means and apriori algorithms}
-grc_k <- grc %>%
+# creating a data framing containing customers, their ages and total spending
+grc_customers <- grc %>%
   select(customer,age,total) %>%
   group_by(customer)%>%
   mutate(total = sum(total))%>% 
   unique()
-grc_k <- data.frame(grc_k[,2:3],row.names = grc_k$customer)
+# making the data frame suitable for k-means
+grc_k <- data.frame(grc_customers[,2:3],row.names = grc_customers$customer)
+# splitting the items to be suitable for apriori algorithms
 tdata <- strsplit(as.vector(grc$items), ',')
 tdata <- transactions(tdata)
 ```
@@ -59,7 +62,7 @@ tdata <- transactions(tdata)
 ## Comparison between cash and creadit total spending using box plot
 
 ```{r Comparison between cash and creadit total spending using box plot}
-ggplot(
+boxplot_cashCreadit <- ggplot(
   grc,
   aes(x = paymentType, y = total, fill = paymentType)
 ) +
@@ -73,6 +76,7 @@ ggplot(
     plot.title = element_text(size=11)
   ) +
   ggtitle("Comparing cash and creadit total using box plot")
+boxplot_cashCreadit
 ```
 
 ### Observations
@@ -82,12 +86,33 @@ After brief moments of seeing the figure, it is quite easy to see that people ne
 
 ## Compare each age and sum of total spending.
 
+### Before visualizing
+
+let's create a contingency table using the data prepared and look at a table containing customers, their ages and their total individual spending
+```{r}
+table(grc_customers$age)
+arrange(grc_customers,desc(total))
+```
+It becomes clear that there are more people aged (22,37 and 55) than the other age groups
+
+
 ```{r Compare each age and sum of total spending,  out.width=c('50%', '50%'), fig.show='hold'}
+customersBarPlot<- grc_customers %>%
+  ggplot(
+    aes(x = customer, y = total)
+  ) + 
+  geom_col() +
+  coord_flip()+
+  theme_ipsum() +
+  theme(
+    plot.title = element_text(size=11)
+  )+
+  ggtitle("comparing the customers spending")
 grc_age <- select(grc,age,total)
 grc_age <- grc_age %>% 
   group_by(age) %>%
   summarise(totalSpending = sum(total))
-ggplot(
+linePlotAgeSum <- ggplot(
   grc_age,
   aes(x = age, y = totalSpending)) + 
   geom_line( color="gray") +
@@ -98,7 +123,7 @@ ggplot(
   )+
   ggtitle("Comparing age and the total spending using line plot")
 grc_age <- mutate(grc_age,age = fct_reorder(as.factor(age),totalSpending))
-ggplot(
+barPlotAgeSum<-ggplot(
   grc_age,
   aes(x = age, y = totalSpending)) +
   geom_col() +
@@ -108,12 +133,22 @@ ggplot(
     plot.title = element_text(size=11)
   )+
   ggtitle("Comparing age and the total spending using bar Plot")
-
+customersBarPlot
+linePlotAgeSum
+barPlotAgeSum
 ```
 
 ### Observations
 
-After seeing both figures, it is easy to conclude that total spending of people aged (37,55 and 22) is higher than the rest of age groups. However, we cannot come to a reasonable explanation for this behavior.
+Since there are more customers aged (22, 37 and 55), it makes sense that the total spending of these groups is higher than the rest. But, looking at the data again we can see that if we look at the customers and their individual spending, we find that customers aged between 20 and 30 -even though there are single individual of these groups- are the highest spending.
+
+## Dashboard
+```{r dashboard, echo= FALSE, fig.show='hold', out.width=c('50%', '50%')}
+boxplot_cashCreadit
+customersBarPlot
+linePlotAgeSum
+barPlotAgeSum
+```
 
 # Generating of association rules
 
