@@ -13,6 +13,15 @@ dataPath <- readline("Enter the path to the data set : ")
 grc <- as_tibble(read.csv(dataPath,stringsAsFactors = FALSE))
 ## displaying first 10 rows of our data
 print(grc, n = 10,width = 80)
+## Preparing the data for k-means and apriori algorithms
+grc_k <- grc %>%
+  select(customer,age,total) %>%
+  group_by(customer)%>%
+  mutate(total = sum(total))%>% 
+  unique()
+grc_k <- data.frame(grc_k[,2:3],row.names = grc_k$customer)
+tdata <- strsplit(as.vector(grc$items), ',')
+tdata <- transactions(tdata)
 
 # Visualizing our Data
 ## Comparison between cash and credit total spending using box plot
@@ -32,8 +41,9 @@ ggplot(
   ggtitle("Comparing cash and creadit total using box plot")
 ## Compare each age and sum of total spending.
 grc_age <- select(grc,age,total)
-grc_age <- group_by(grc_age, age)
-grc_age <- summarise(grc_age,totalSpending = sum(total))
+grc_age <- grc_age %>% 
+  group_by(age)%>%
+  summarise(totalSpending = sum(total))
 ggplot(
   grc_age,
   aes(x = age, y = totalSpending)) + 
@@ -49,10 +59,12 @@ ggplot(
   coord_flip() +
   theme_ipsum() +
   ggtitle("Comparing age and the total spending using bar Plot")
+## Show each city total spending and arrange it by total descending.
+
+## Display the distribution of total spending.
+
+# K-means
 # Association Rules
-## Preparing the data for generating the association rules
-tdata<-strsplit(as.vector(grc$items), ',')
-tdata <- transactions(tdata)
 ## Getting the minimum support and minimum confidence from the user
 min_support <- as.numeric(readline("Enter the minimum support : "))
 min_conf <- as.numeric(readline("Enter the conf support : "))

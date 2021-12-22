@@ -3,6 +3,7 @@
 ### Ahmed's Tasks
 
 - [x] Data Processing and cleaning
+  - [x] Preparing the data for k-means and Apriori algorithms
 - [x] implement Apriori's Algorithm
 - [x] Data viz
   - [x]  Part 1
