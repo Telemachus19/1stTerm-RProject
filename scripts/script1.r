@@ -29,7 +29,6 @@ grc_customers <- grc %>%
 grc_k <- data.frame(grc_customers[,2:3],row.names = grc_customers$customer)
 No_of_clusters<-as.numeric(readline("Enter the number of clusters: "))
 Kmeans_Algorithm<-kmeans(grc_kmeans,centers = No_of_clusters)
-Kmeans_Algorithm
 grc_kmeans<-mutate(grc_kmeans,Kmeans_Algorithm$cluster)
 print(grc_kmeans)
 
