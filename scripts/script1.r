@@ -8,6 +8,8 @@ library(ggplot2)
 library(forcats)
 library(arules)
 library(hrbrthemes)
+library(viridis)
+
 
 ## Getting the data
 dataPath <- readline("Enter the path to the data set : ")
