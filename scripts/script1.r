@@ -102,6 +102,26 @@ barPlotAgeSum
 
 ## Show each city total spending and arrange it by total descending.
 
+###Cleaning the data in order to be prepared for data visualization
+CityVsTotalspending<-grc %>%
+  select(city,total) %>%
+  group_by(city) %>%
+  mutate(total_spending=sum(total)) %>%
+  unique()
+CityVsTotalspending<-data.frame(CityVsTotalspending$city,CityVsTotalspending$total_spending)
+CityVsTotalspending<-unique(CityVsTotalspending)
+CityVsTotalspending<-arrange(CityVsTotalspending,desc(CityVsTotalspending$CityVsTotalspending.total_spending))
+###Visualizing
+CityandTotalspending<-ggplot(CityVsTotalspending,
+                             mapping = aes(CityVsTotalspending.city,CityVsTotalspending.total_spending),
+)+
+  geom_point(size=10,color="#AA4371")+
+  labs(x="Cities",y="Total spending",title = "Cities VS. Total Spending")+
+  theme_gray()+
+  coord_flip()+
+  theme(
+    plot.title = element_text(size=15))
+print(CityandTotalspending)
 ## Display the distribution of total spending.
 
 # K-means
