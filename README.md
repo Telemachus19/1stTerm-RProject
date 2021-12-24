@@ -14,7 +14,7 @@
 
 - [x] Implement K-means Algorithm
 - [ ] Data viz
-  - [ ]  Part 3
+  - [x]  Part 3
   - [ ]  part 4
 
 ### Tony's Tasks
