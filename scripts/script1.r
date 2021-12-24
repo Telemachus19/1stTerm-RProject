@@ -120,6 +120,15 @@ CityandTotalspending<-ggplot(CityVsTotalspending,
     plot.title = element_text(size=15))
 print(CityandTotalspending)
 ## Display the distribution of total spending.
+Distribution_of_total_spending<-boxplot(
+  x=grc_customers$total,
+  main="The Distribution of Total spending",
+  xlab="Total spending",
+  las=1,
+  col="antiquewhite2",
+  horizontal = TRUE
+)
+print(Distribution_of_total_spending)
 
 # K-means
 No_of_clusters<-as.numeric(readline("Enter the number of clusters: "))
