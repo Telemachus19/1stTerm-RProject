@@ -14,6 +14,7 @@
 
 - [x] Implement K-means Algorithm
 - [x] Data viz
+  -[x] Cleaning the data in order to be used in data viz stage(part3,part4)
   - [x]  Part 3
   - [x]  part 4
 
