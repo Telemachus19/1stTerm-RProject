@@ -13,9 +13,9 @@
 ### Abdelrahman's Tasks
 
 - [x] Implement K-means Algorithm
-- [ ] Data viz
+- [x] Data viz
   - [x]  Part 3
-  - [ ]  part 4
+  - [x]  part 4
 
 ### Tony's Tasks
 
