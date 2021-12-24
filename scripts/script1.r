@@ -29,11 +29,6 @@ grc_customers <- grc %>%
 
 #### making the data frame suitable for k-means
 grc_kmeans <- data.frame(grc_customers[,2:3],row.names = grc_customers$customer)
-No_of_clusters<-as.numeric(readline("Enter the number of clusters: "))
-Kmeans_Algorithm<-kmeans(grc_kmeans,centers = No_of_clusters)
-grc_kmeans<-mutate(grc_kmeans,Kmeans_Algorithm$cluster)
-print(grc_kmeans)
-
 #### splitting the items to suitable for apriori algorithms
 tdata <- strsplit(as.vector(grc$items), ',')
 tdata <- transactions(tdata)
@@ -127,7 +122,10 @@ print(CityandTotalspending)
 ## Display the distribution of total spending.
 
 # K-means
-
+No_of_clusters<-as.numeric(readline("Enter the number of clusters: "))
+Kmeans_Algorithm<-kmeans(grc_kmeans,centers = No_of_clusters)
+grc_kmeans<-mutate(grc_kmeans,Kmeans_Algorithm$cluster)
+print(grc_kmeans)
 # Association Rules
 
 ## Getting the minimum support and minimum confidence from the user
