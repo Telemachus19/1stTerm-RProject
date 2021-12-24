@@ -12,7 +12,7 @@
 
 ### Abdelrahman's Tasks
 
-- [ ] Implement K-means Algorithm
+- [x] Implement K-means Algorithm
 - [ ] Data viz
   - [ ]  Part 3
   - [ ]  part 4
