@@ -69,26 +69,6 @@ table(grc_customers$age)
 arrange(grc_customers,desc(total))
 
 ### Visualizing
-customersBarPlot<- grc_customers %>%
-  ggplot(
-    aes(x = customer, y = total)) + 
-  geom_col() +
-  coord_flip()+
-  theme_ipsum()
-grc_age <- select(grc,age,total)
-grc_age <- grc_age %>% 
-  group_by(age) %>%
-  summarise(totalSpending = sum(total))
-linePlotAgeSum <- ggplot(
-  grc_age,
-  aes(x = age, y = totalSpending)) + 
-  geom_line( color="gray") +
-  geom_point(shape=21, color="black", fill="#69b3a2", size=6) +
-  theme_ipsum() + 
-  theme(
-    plot.title = element_text(size=11))+
-  ggtitle("Comparing age and the total spending using line plot")
-grc_age <- mutate(grc_age,age = fct_reorder(as.factor(age),totalSpending))
 barPlotAgeSum<-ggplot(
   grc_age,
   aes(x = age, y = totalSpending)) +
@@ -99,7 +79,6 @@ barPlotAgeSum<-ggplot(
     plot.title = element_text(size=16))+
   ggtitle("Comparing age and the total spending using bar Plot")
 
-print(customersBarPlot)
 print(barPlotAgeSum)
 
 ## Show each city total spending and arrange it by total descending.
@@ -133,8 +112,7 @@ Distribution_of_total_spending<-ggplot(grc_customers,aes(total)) +
   theme_grey() +
   theme(
     plot.title = element_text(size=16),
-    axis.text.y = element_blank()
-  ) +
+    axis.text.y = element_blank()) +
   xlab("Total Spending")  +
   ggtitle("Distribution of Total spending")
 summary(grc_customers)
