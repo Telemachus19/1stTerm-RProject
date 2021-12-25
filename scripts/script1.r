@@ -118,20 +118,20 @@ CityandTotalspending<-ggplot(C_Vs_To, aes(x=city, y=total)) +
     )
 print(CityandTotalspending)
 ## Display the distribution of total spending.
-Distribution_of_total_spending<-boxplot(
-  x=grc_customers$total,
-  main="The Distribution of Total spending",
-  xlab="Total spending",
-  las=1,
-  col="antiquewhite2",
-  horizontal = TRUE
-)
+Distribution_of_total_spending<-ggplot(grc_customers,aes(x=total,y=NULL)) +
+  geom_boxplot(fill = "antiquewhite4",
+               ) +
+  theme_gray() +
+  theme(
+    plot.title = element_text(size=16)
+  ) +
+  labs(x="Total Spending" ,y="" ,title = "Cities VS. Total Spending")
 print(Distribution_of_total_spending)
 
 # K-means
 No_of_clusters<-as.numeric(readline("Enter the number of clusters: "))
 Kmeans_Algorithm<-kmeans(grc_kmeans,centers = No_of_clusters)
-grc_kmeans<-mutate(grc_kmeans,Kmeans_Algorithm$cluster)
+grc_kmeans<-mutate(grc_kmeans,cluster=Kmeans_Algorithm$cluster)
 print(grc_kmeans)
 # Association Rules
 
