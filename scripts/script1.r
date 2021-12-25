@@ -99,24 +99,23 @@ barPlotAgeSum
 ## Show each city total spending and arrange it by total descending.
 
 ###Cleaning the data in order to be prepared for data visualization
-CityVsTotalspending<-grc %>%
+C_Vs_To<-grc %>%
   select(city,total) %>%
   group_by(city) %>%
-  mutate(total_spending=sum(total)) %>%
-  unique()
-CityVsTotalspending<-data.frame(CityVsTotalspending$city,CityVsTotalspending$total_spending)
-CityVsTotalspending<-unique(CityVsTotalspending)
-CityVsTotalspending<-arrange(CityVsTotalspending,desc(CityVsTotalspending$CityVsTotalspending.total_spending))
+  mutate(total=sum(total)) %>%
+  unique()%>%
+  arrange(desc(total))%>%
+  mutate(city=fct_reorder(as.factor(city),total))
 ###Visualizing
-CityandTotalspending<-ggplot(CityVsTotalspending,
-                             mapping = aes(CityVsTotalspending.city,CityVsTotalspending.total_spending),
-)+
-  geom_point(size=10,color="#AA4371")+
+CityandTotalspending<-ggplot(C_Vs_To, aes(x=city, y=total)) +
+  geom_segment( aes(x=city, xend=city, y=0, yend=total), color="skyblue") +
+  geom_point( color="blue", size=9, alpha=0.7) +
   labs(x="Cities",y="Total spending",title = "Cities VS. Total Spending")+
-  theme_gray()+
+  theme_light() +
   coord_flip()+
   theme(
-    plot.title = element_text(size=15))
+    plot.title = element_text(size=16)
+    )
 print(CityandTotalspending)
 ## Display the distribution of total spending.
 Distribution_of_total_spending<-boxplot(
