@@ -137,8 +137,8 @@ Distribution_of_total_spending<-ggplot(grc_customers,aes(total)) +
     ) +
   xlab("Total Spending")  +
   ggtitle("Distribution of Total spending")
+summary(grc_customers)
 print(Distribution_of_total_spending)
-
 # K-means
 No_of_clusters<-as.numeric(readline("Enter the number of clusters: "))
 Kmeans_Algorithm<-kmeans(grc_kmeans,centers = No_of_clusters)
