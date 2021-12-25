@@ -125,7 +125,7 @@ Distribution_of_total_spending<-ggplot(grc_customers,aes(x=total,y=NULL)) +
   theme(
     plot.title = element_text(size=16)
   ) +
-  labs(x="Total Spending" ,y="" ,title = "Cities VS. Total Spending")
+  labs(x="Total Spending" ,y="" ,title = "Distribution of Total spending")
 print(Distribution_of_total_spending)
 
 # K-means
