@@ -40,7 +40,7 @@ knitr::opts_chunk$set(echo = TRUE,  dev = "cairo_pdf")
 
 ## Preparing for a project
 
-We learn Git and GitHub that helped us as members of the project see what each one of us did and the notes that explain why he did what he did.
+We used Git and GitHub that helped us as members of the project to observe what each one of us did and the notes that explain why he did what he did.
 
 ## Description of the data 
 When we skim through our data, we find that it's a grocery store's data.
