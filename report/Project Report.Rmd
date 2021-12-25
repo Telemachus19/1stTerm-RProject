@@ -135,7 +135,7 @@ print(barplot_cashCredit)
 
 ### Observations
 
-After brief moments of seeing the figure, we find that the distribution of cash and credit types of payment is nearly identical, but the amount payed in cash is greater than the amount payed in credit.
+After brief moments of seeing the figures, we find that the distribution of cash and credit types of payment is nearly identical, but the amount payed in cash is greater than the amount payed in credit.
 
 
 ## Compare each age and sum of total spending.
@@ -238,7 +238,7 @@ Distribution_of_total_spending
 
 # K-means
 
-## Brief exlanition of the k-means algorithm
+In k-means we will group the customers into (n) of clusters according to their age and their total spending and then we will put it in a table, The number of clusters will be specified by the user.
 
 ## Getting the number of clusters from the user
 
