@@ -96,8 +96,7 @@ barPlotAgeSum<-ggplot(
   coord_flip() +
   theme_ipsum() +
   theme(
-    plot.title = element_text(size=11)
-  )+
+    plot.title = element_text(size=16))+
   ggtitle("Comparing age and the total spending using bar Plot")
 
 print(customersBarPlot)
@@ -112,8 +111,8 @@ C_Vs_To <-grc %>%
   summarise(totalspending = sum(total))
 C_Vs_To <- mutate(C_Vs_To, city = fct_reorder(as.factor(city),totalspending))
 print(C_Vs_To)
-###Visualizing
 
+###Visualizing
 CityandTotalspending<- ggplot(C_Vs_To,aes(city,totalspending)) +
   geom_segment( aes(xend=city,y = 0,yend=totalspending)) +
   scale_y_continuous(n.breaks = 10) +
@@ -125,6 +124,7 @@ CityandTotalspending<- ggplot(C_Vs_To,aes(city,totalspending)) +
   ggtitle("Cities VS. Total Spending")
 
 print(CityandTotalspending)
+
 ## Display the distribution of total spending.
 Distribution_of_total_spending<-ggplot(grc_customers,aes(total)) +
   stat_boxplot(geom = "errorbar",width = .9) + 
@@ -140,7 +140,11 @@ Distribution_of_total_spending<-ggplot(grc_customers,aes(total)) +
 print(Distribution_of_total_spending)
 
 # K-means
+
+## Getting the number of clusters from the user
 No_of_clusters<-as.numeric(readline("Enter the number of clusters: "))
+
+## Implementing the algorithm using the bult-in function
 Kmeans_Algorithm<-kmeans(grc_kmeans,centers = No_of_clusters)
 grc_kmeans<-mutate(grc_kmeans,cluster=Kmeans_Algorithm$cluster)
 print(grc_kmeans)
@@ -148,14 +152,16 @@ print(grc_kmeans)
 # Association Rules
 
 ## Getting the minimum support and minimum confidence from the user
-
 min_support <- as.numeric(readline("Enter the minimum support : "))
 min_conf <- as.numeric(readline("Enter the conf support : "))
 
 ## implementing the algorithm
-
 apriori_rules <- apriori(tdata, parameter = list(supp = min_support, conf = min_conf, minlen = 2))
 
 ## displaying the result
-as_tibble(DATAFRAME(apriori_rules,separate = TRUE, setStart = "", setEnd = "")) %>%
-  print(n = 100, width = 90)
+if(length(size(apriori_rules)) == 0){
+  print("No rules were generated")
+}else{
+  as_tibble(DATAFRAME(apriori_rules,separate = TRUE, setStart = "", setEnd = "")) %>%
+    print(n = 100, width = 90)
+}

@@ -9,23 +9,66 @@ knitr::opts_chunk$set(echo = TRUE,  dev = "cairo_pdf")
 ```
 # Team members
 
--   Ahmed Ashraf Mohamed
+| Name                         | ID          | Department          |
+|------------------------------|-------------|---------------------|
+| Ahmed Ashraf Mohamed         | 2022446758  | Business            |
+| Abdelrhman Mohamed Abdelhady | 2022513643  | Intelligent Systems |
+| Antonuose Gerges Nageh       | 20221903971 | Intelligent Systems |
 
-    -   ID: 2022446758
+## Roles 
+- Ahmed Ashraf Mohamed 
+  - [x] Data Processing and cleaning 
+    - [x] preparing the data for k-means and Apriori algorithms
+  - [x] Data visualization
+    - [x] Part 1
+    - [x] Part 2
+  - [x] Implementation of Apriori's algorithm
+- Abelrhman Mohamed Adelhady
+  - [x] Data visualization
+    - [x] Cleaning the data in order to be used in data visualization part 3 & 4
+    - [x] Part 3
+    - [x] Part 4
+- Antonuose Gerges Nageh
+  - [ ]  Project description 
+    - [ ] Describe Role of members
+    - [ ] Full Description of data set
+    - [ ] What will the program do?
+    - [ ] What the output from the program will be ? 
 
--   Abdelrhman Mohamed Abdelhady Hodid
-
-    -   ID : 2022513643
-
--   Antonuose Gerges Nageh
-
-    -   ID : 20221903971
 
 # Project Description
 
+## Description of the data 
+When we skim through our data, we find that it's a grocery store's data.
+The data contains
+
+- items sold
+- count (Number of items in a single entry)
+- Total price of the item entry
+- Rnd (Customer number)
+- Customer's name
+- Customer's age
+- City 
+- Type of Payment (Cash or Credit)
+
+Items are types of food, vegetables, fruits, ..., etc.
+Customers are from different cities and they have different ages.
+There are two ways to pay cash or credit.
+The number of transactions in this data is 9863.
+
 # Getting and preparing the data set
 
+The first thing we are going to do is importing the libraries we are going to use, and then import the data into a data frame. 
+The second thing is that we will prepare data for k-means and apriori algorithms by
+
+- Creating a data frame containing the customers, their ages, and total spending, and then grouping it by the customers
+- We make the data frame suitable for k-means.
+    - By sub-setting the data frame created using only the age and total columns
+- We make the data suitable for apriori's algorithm by
+    - Splitting the transactions'e entries into separate items and transforming it into a transactions object
+
 ## importing the library we are going to use
+
 
 ```{r importing the library me, message=FALSE, warning=FALSE}
 library(dplyr)
@@ -59,7 +102,7 @@ tdata <- transactions(tdata)
 ```
 # Visualizing our Data
 
-## Comparison between cash and creadit total spending using box plot
+## Comparison between cash and credit total spending
 
 ```{r Comparison between cash and creadit total spending using box plot, out.width=c('50%', '50%'), fig.show='hold'}
 boxplot_cashCredit <- ggplot(
@@ -74,7 +117,7 @@ boxplot_cashCredit <- ggplot(
   ylab("Total") + 
   theme(
     plot.title = element_text(size=16)) +
-  ggtitle("Comparing cash and credit total using box plot")
+  ggtitle("Distribution of Cash and Credit type of payment")
 barplot_cashCredit <- ggplot(grc,
                              aes(x = paymentType,
                                  y = total,
@@ -84,7 +127,7 @@ barplot_cashCredit <- ggplot(grc,
   theme_ipsum() + 
   theme(
     plot.title = element_text(size = 16)) + 
-  ggtitle("Comparing cash and credit total using bar plot")
+  ggtitle("Comparing cash and credit total")
 
 print(boxplot_cashCredit)
 print(barplot_cashCredit)
@@ -92,32 +135,21 @@ print(barplot_cashCredit)
 
 ### Observations
 
-After brief moments of seeing the figure, it is quite easy to see that people nearly equally pay with Cash or credit money. 
+After brief moments of seeing the figure, we find that the distribution of cash and credit types of payment is nearly identical, but the amount payed in cash is greater than the amount payed in credit.
 
 
 ## Compare each age and sum of total spending.
 
 ### Before visualizing
 
-let's create a contingency table using the data prepared and look at a table containing customers, their ages and their total individual spending
+let's create a contingency table using the data prepared and look at number of individuals in each age group.
 ```{r}
 table(grc_customers$age)
-arrange(grc_customers,desc(total))
 ```
+
 It becomes clear that there are more people aged (22,37 and 55) than the other age groups
 
-
-```{r Compare each age and sum of total spending,  out.width=c('50%', '50%'), fig.show='hold'}
-customersBarPlot<- grc_customers %>%
-  ggplot(
-    aes(x = customer, y = total)
-  ) + 
-  geom_col() +
-  coord_flip()+
-  theme_ipsum() +
-  theme(
-    plot.title = element_text(size=16))+
-  ggtitle("comparing the customers spending")
+```{r Compare each age and sum of total spending, fig.show='hold'}
 grc_age <- select(grc,age,total)
 grc_age <- grc_age %>% 
   group_by(age) %>%
@@ -133,15 +165,17 @@ barPlotAgeSum<-ggplot(
     plot.title = element_text(size=16),
     legend.position = "none")+
   ggtitle("Comparing age and the total spending using bar Plot")
-customersBarPlot
-barPlotAgeSum
+
+print(barPlotAgeSum)
 ```
 
 ### Observations
 
-Since there are more customers aged (22, 37 and 55), it makes sense that the total spending of these groups is higher than the rest. But, looking at the data again we can see that if we look at the customers and their individual spending, we find that customers aged between 20 and 30 -even though there are single individual of these groups- are the highest spending.
+Since there are more customers aged (22, 37 and 55), it makes sense that the total spending of these age groups is higher than the rest.
 
-```{r}
+## Comparing the cities' total spending
+
+```{r Comparing the cities total spending}
 ###Cleaning the data in order to be prepared for data visualization
 C_Vs_To <-grc %>%
   select(city,total) %>%
@@ -166,7 +200,13 @@ CityandTotalspending<- ggplot(C_Vs_To,aes(city,totalspending)) +
 print(CityandTotalspending)
 ```
 
-```{r}
+### Observations 
+
+After we doing the data visualization on cities and their total spending, We will find that Alexandria and Cairo are the highest cities in spending, Aswan and Fayoum are the smallest in their spending.
+
+## Distribution of Total spending 
+
+```{r Distribution of total spending}
 ## Display the distribution of total spending.
 Distribution_of_total_spending<-ggplot(grc_customers,aes(total)) +
   stat_boxplot(geom = "errorbar",width = .9) + 
@@ -181,26 +221,39 @@ Distribution_of_total_spending<-ggplot(grc_customers,aes(total)) +
 print(Distribution_of_total_spending)
 ```
 
+### Observations
+
+We will find that the total spending are between 772871 and 932250 and most of customers spend between 822482 and 881729 and their mean is 847615.
+
 ## Dashboard
 
-```{r dashboard, echo=FALSE, fig.show='hold', out.width=c('50%', '50%')}
+```{r dashboard, echo=FALSE,fig.show='hold', out.width=c('50%', '50%')}
 boxplot_cashCredit
 barplot_cashCredit
-customersBarPlot
 barPlotAgeSum
 CityandTotalspending
 Distribution_of_total_spending
 ```
 
 # K-means
-```{r}
+
+## Brief exlanition of the k-means algorithm
+
+## Getting the number of clusters from the user
+
+```{r Getting the number of clusters from the user }
 No_of_clusters<-as.numeric(readline("Enter the number of clusters: "))
+```
+
+## Implementation of the algorithm using the bult-in function
+
+```{r implementing the algorithm and printing a table}
 Kmeans_Algorithm<-kmeans(grc_kmeans,centers = No_of_clusters)
 grc_kmeans<-mutate(grc_kmeans,cluster=Kmeans_Algorithm$cluster)
 print(grc_kmeans)
 ```
 
-# Generating of association rules
+# Generating the association rules
 
 ## Brief explanition of Apriori algorithm for generating the rules
 
@@ -209,16 +262,30 @@ Apriori algorithm is an iterative approach for discovering the most frequent ite
 ## Implementing the alogrithm
 
 ### Reading both minimum support and minimum confidance from the user
+
 ```{r geting the minimum support and minimum confidance}
 min_support <- as.numeric(readline("Enter the minimum Support : "))
 min_conf <- as.numeric(readline("Enter the minimum Confidance : "))
 ```
+
 ### implementing the algorithm using the built-in function
+
 ```{r implementation}
 apriori_rules <- apriori(
   tdata,
   parameter = list(supp = min_support, conf = min_conf, minlen = 2))
+```
+
+#### Printing the result
+
+Taking into consideration that there might be no rules generated.
+
+```{r displaying the result}
 # Displaying at most 100 rows of the rules
-as_tibble(DATAFRAME(apriori_rules,separate = TRUE, setStart = "", setEnd = "")) %>%
-  print(n = 100, width = 90)
+if(length(size(apriori_rules)) == 0){
+  print("No rules were generated")
+}else{
+  as_tibble(DATAFRAME(apriori_rules,separate = TRUE, setStart = "", setEnd = "")) %>%
+    print(n = 100, width = 90)
+}
 ```
