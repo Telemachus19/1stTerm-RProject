@@ -13,9 +13,10 @@
 ### Abdelrahman's Tasks
 
 - [x] Implement K-means Algorithm
-- [ ] Data viz
+- [x] Data viz
+  - [x] Cleaning the data in order to be used in data viz stage(part3,part4)
   - [x]  Part 3
-  - [ ]  part 4
+  - [x]  part 4
 
 ### Tony's Tasks
 

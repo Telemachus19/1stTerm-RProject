@@ -61,22 +61,33 @@ tdata <- transactions(tdata)
 
 ## Comparison between cash and creadit total spending using box plot
 
-```{r Comparison between cash and creadit total spending using box plot}
-boxplot_cashCreadit <- ggplot(
+```{r Comparison between cash and creadit total spending using box plot, out.width=c('50%', '50%'), fig.show='hold'}
+boxplot_cashCredit <- ggplot(
   grc,
-  aes(x = paymentType, y = total, fill = paymentType)
-) +
-  geom_boxplot(width = .2, 
-               fill = "orange",
+  aes(x = paymentType, y = total, fill = paymentType)) +
+  stat_boxplot(geom = "errorbar", width = .2) +
+  geom_boxplot(width = .2,
                outlier.color = "orange",
                outlier.size = 2)+
   theme_ipsum_rc() +
+  xlab("Payment Type") +
+  ylab("Total") + 
   theme(
-    legend.position="none",
-    plot.title = element_text(size=11)
-  ) +
-  ggtitle("Comparing cash and creadit total using box plot")
-boxplot_cashCreadit
+    plot.title = element_text(size=16)) +
+  ggtitle("Comparing cash and credit total using box plot")
+barplot_cashCredit <- ggplot(grc,
+                             aes(x = paymentType,
+                                 y = total,
+                                 fill = paymentType)) +
+  geom_col(width = .3) +
+  scale_y_continuous(n.breaks = 12) +
+  theme_ipsum() + 
+  theme(
+    plot.title = element_text(size = 16)) + 
+  ggtitle("Comparing cash and credit total using bar plot")
+
+print(boxplot_cashCredit)
+print(barplot_cashCredit)
 ```
 
 ### Observations
@@ -105,23 +116,12 @@ customersBarPlot<- grc_customers %>%
   coord_flip()+
   theme_ipsum() +
   theme(
-    plot.title = element_text(size=11)
-  )+
+    plot.title = element_text(size=16))+
   ggtitle("comparing the customers spending")
 grc_age <- select(grc,age,total)
 grc_age <- grc_age %>% 
   group_by(age) %>%
   summarise(totalSpending = sum(total))
-linePlotAgeSum <- ggplot(
-  grc_age,
-  aes(x = age, y = totalSpending)) + 
-  geom_line( color="gray") +
-  geom_point(shape=21, color="black", fill="#69b3a2", size=6) +
-  theme_ipsum() + 
-  theme(
-    plot.title = element_text(size=11)
-  )+
-  ggtitle("Comparing age and the total spending using line plot")
 grc_age <- mutate(grc_age,age = fct_reorder(as.factor(age),totalSpending))
 barPlotAgeSum<-ggplot(
   grc_age,
@@ -130,11 +130,10 @@ barPlotAgeSum<-ggplot(
   coord_flip() +
   theme_ipsum() +
   theme(
-    plot.title = element_text(size=11)
-  )+
+    plot.title = element_text(size=16),
+    legend.position = "none")+
   ggtitle("Comparing age and the total spending using bar Plot")
 customersBarPlot
-linePlotAgeSum
 barPlotAgeSum
 ```
 
@@ -142,12 +141,63 @@ barPlotAgeSum
 
 Since there are more customers aged (22, 37 and 55), it makes sense that the total spending of these groups is higher than the rest. But, looking at the data again we can see that if we look at the customers and their individual spending, we find that customers aged between 20 and 30 -even though there are single individual of these groups- are the highest spending.
 
+```{r}
+###Cleaning the data in order to be prepared for data visualization
+C_Vs_To <-grc %>%
+  select(city,total) %>%
+  group_by(city) %>%
+  summarise(totalspending = sum(total))
+C_Vs_To <- mutate(C_Vs_To, city = fct_reorder(as.factor(city),totalspending))
+print(C_Vs_To)
+###Visualizing
+
+CityandTotalspending<- ggplot(C_Vs_To,aes(city,totalspending)) +
+  geom_segment( aes(xend=city,y = 0,yend=totalspending)) +
+  scale_y_continuous(n.breaks = 10) +
+  geom_point( color="blue", size=9, alpha=.9) +
+  theme_light() +
+  xlab("City") +
+  ylab("Total Spending") + 
+  coord_flip() + 
+  theme(
+    plot.title = element_text(size=16))+
+  ggtitle("Cities VS. Total Spending")
+
+print(CityandTotalspending)
+```
+
+```{r}
+## Display the distribution of total spending.
+Distribution_of_total_spending<-ggplot(grc_customers,aes(total)) +
+  stat_boxplot(geom = "errorbar",width = .9) + 
+  geom_boxplot(fill = "antiquewhite4",) +
+  scale_x_continuous(n.breaks = 8) +
+  theme_grey() +
+  theme(
+    plot.title = element_text(size=16),
+    axis.text.y = element_blank()) +
+  xlab("Total Spending")  +
+  ggtitle("Distribution of Total spending")
+print(Distribution_of_total_spending)
+```
+
 ## Dashboard
-```{r dashboard, echo= FALSE, fig.show='hold', out.width=c('50%', '50%')}
-boxplot_cashCreadit
+
+```{r dashboard, echo=FALSE, fig.show='hold', out.width=c('50%', '50%')}
+boxplot_cashCredit
+barplot_cashCredit
 customersBarPlot
-linePlotAgeSum
 barPlotAgeSum
+CityandTotalspending
+Distribution_of_total_spending
+```
+
+# K-means
+```{r}
+No_of_clusters<-as.numeric(readline("Enter the number of clusters: "))
+Kmeans_Algorithm<-kmeans(grc_kmeans,centers = No_of_clusters)
+grc_kmeans<-mutate(grc_kmeans,cluster=Kmeans_Algorithm$cluster)
+print(grc_kmeans)
 ```
 
 # Generating of association rules
