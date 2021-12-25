@@ -202,7 +202,7 @@ print(CityandTotalspending)
 
 ### Observations 
 
-After we doing the data visualization on cities and their total spending, We will find that Alexandria and Cairo are the highest cities in spending, Aswan and Fayoum are the smallest in their spending.
+After we doing the data visualization on cities and their total spending, We will find that Alexandria and Cairo are the highest cities in spending, Aswan and Fayoum are the smallest in spending.
 
 ## Distribution of Total spending 
 
