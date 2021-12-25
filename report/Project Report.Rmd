@@ -30,8 +30,8 @@ knitr::opts_chunk$set(echo = TRUE,  dev = "cairo_pdf")
     - [x] Part 4
 - Antonuose Gerges Nageh
   - [ ]  Project description 
-    - [ ] Describe Role of members
-    - [ ] Full Description of data set
+    - [x] Describe Role of members
+    - [x] Full Description of data set
     - [ ] What will the program do?
     - [ ] What the output from the program will be ? 
 
