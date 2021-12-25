@@ -39,16 +39,18 @@ tdata <- transactions(tdata)
 ## Comparison between cash and credit total spending using box plot
 boxplot_cashCreadit <- ggplot(
   grc,
-  aes(x = paymentType, y = total, fill = paymentType)
+  aes(x = paymentType, y = total)
 ) +
-  geom_boxplot(width = .2, 
+  stat_boxplot(geom = "errorbar",
+               width = .3) +
+  geom_boxplot(width = .3, 
                fill = "orange",
                outlier.color = "orange",
                outlier.size = 2)+
   theme_ipsum_rc() +
   theme(
     legend.position="none",
-    plot.title = element_text(size=11)
+    plot.title = element_text(size=16)
   ) +
   ggtitle("Comparing cash and creadit total using box plot")
 
@@ -103,14 +105,11 @@ barPlotAgeSum
 CityVsTotalspending<-grc %>%
   select(city,total) %>%
   group_by(city) %>%
-  mutate(total_spending=sum(total)) %>%
+  mutate(total=sum(total)) %>%
   unique()
-CityVsTotalspending<-data.frame(CityVsTotalspending$city,CityVsTotalspending$total_spending)
-CityVsTotalspending<-unique(CityVsTotalspending)
-CityVsTotalspending<-arrange(CityVsTotalspending,desc(CityVsTotalspending$CityVsTotalspending.total_spending))
 ###Visualizing
 CityandTotalspending<-ggplot(CityVsTotalspending,
-                             mapping = aes(CityVsTotalspending.city,CityVsTotalspending.total_spending),
+                             mapping = aes(CityVsTotalspending$city,CityVsTotalspending$total),
 )+
   geom_point(size=10,color="#AA4371")+
   labs(x="Cities",y="Total spending",title = "Cities VS. Total Spending")+
@@ -124,7 +123,7 @@ print(CityandTotalspending)
 # K-means
 No_of_clusters<-as.numeric(readline("Enter the number of clusters: "))
 Kmeans_Algorithm<-kmeans(grc_kmeans,centers = No_of_clusters)
-grc_kmeans<-mutate(grc_kmeans,Kmeans_Algorithm$cluster)
+grc_kmeans<-mutate(grc_kmeans,Cluster = Kmeans_Algorithm$cluster)
 print(grc_kmeans)
 # Association Rules
 
@@ -140,3 +139,16 @@ apriori_rules <- apriori(tdata, parameter = list(supp = min_support, conf = min_
 ## displaying the result
 as_tibble(DATAFRAME(apriori_rules,separate = TRUE, setStart = "", setEnd = "")) %>%
   print(n = 100, width = 90)
+
+
+
+# Data
+set.seed(3)
+y <- rnorm(500)
+df <- data.frame(y)
+
+# Horizontal box plot
+ggplot(df, aes(x = y)) + 
+  stat_boxplot(geom = "errorbar",
+               width = 0.15) + 
+  geom_boxplot()
