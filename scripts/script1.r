@@ -139,7 +139,6 @@ Distribution_of_total_spending<-ggplot(grc_customers,aes(total)) +
   ggtitle("Distribution of Total spending")
 summary(grc_customers)
 print(Distribution_of_total_spending)
-
 # K-means
 
 ## Getting the number of clusters from the user
