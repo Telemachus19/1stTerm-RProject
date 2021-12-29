@@ -29,11 +29,11 @@ knitr::opts_chunk$set(echo = TRUE,  dev = "cairo_pdf")
     - [x] Part 3
     - [x] Part 4
 - Antonuose Gerges Nageh
-  - [ ]  Project description 
+  - [x]  Project description 
     - [x] Describe Role of members
     - [x] Full Description of data set
-    - [ ] What will the program do?
-    - [ ] What the output from the program will be ? 
+    - [x] What will the program do?
+    - [x] What the output from the program will be ? 
 
 
 # Project Description
@@ -49,7 +49,6 @@ The data contains
 - items sold
 - count (Number of items in a single entry)
 - Total price of the item entry
-- Rnd (Customer number)
 - Customer's name
 - Customer's age
 - City 
@@ -59,6 +58,31 @@ Items are types of food, vegetables, fruits, ..., etc.
 Customers are from different cities and they have different ages.
 There are two ways to pay cash or credit.
 The number of transactions in this data is 9863.
+
+## Input of the program
+
+- The path of data
+- The number of clusters to used in the k-means algorithm
+- The Minimum Support and minimum confidence to be used in the Apriori Algorithm
+
+## Output of the Program
+
+- Plots : 
+  - Comparison between cash and credit total spending, Output from this process is plot that explain
+    - Distribution of Cash and Credit type of payment
+    - Comparing cash and credit total
+  - Compare each age and sum of total spending
+    - bar Plot that Compares age and the total spending
+  - Comparing the cities’ total spending 
+    - Bar Plot that compares cities' total spending and is displayed in descending order
+  - Distribution of Total spending
+    - Box plot that highlight the Five numbers summary
+- K-means :
+  - The number of Cluster will be take from the user.
+  - A table that contains customers, their age, total spending and the number of the cluster
+- Apriori Algorithm
+  - Generating Strong association rules displayed in a table form
+    - If there is no association rules after implementing the algorithm display a massage containing an error
 
 # Getting and preparing the data set
 
@@ -82,11 +106,12 @@ library(arules)
 library(hrbrthemes)
 ```
 
-## Reading the data and checking the frist 10 rows of it
+## Reading the data and checking the first 10 rows of it
 
 ```{r Getting data, echo=TRUE}
 dataPath <- readline("Enter the path to the data set : ")
 grc <- as_tibble(read.csv(dataPath,stringsAsFactors = FALSE))
+grc <- select(grc, -rnd)
 # displaying first 10 rows of our data
 print(grc,n = 10, width = 80)
 ```
@@ -105,6 +130,7 @@ grc_kmeans <- data.frame(grc_customers[,2:3],row.names = grc_customers$customer)
 tdata <- strsplit(as.vector(grc$items), ',')
 tdata <- transactions(tdata)
 ```
+
 # Visualizing our Data
 
 ## Comparison between cash and credit total spending
@@ -251,7 +277,7 @@ In k-means we will group the customers into (n) of clusters according to their a
 No_of_clusters<-as.numeric(readline("Enter the number of clusters: "))
 ```
 
-## Implementation of the algorithm using the bult-in function
+## Implementation of the algorithm using the built-in function
 
 ```{r implementing the algorithm and printing a table}
 Kmeans_Algorithm<-kmeans(grc_kmeans,centers = No_of_clusters)
@@ -289,7 +315,12 @@ Taking into consideration that there might be no rules generated.
 ```{r displaying the result}
 # Displaying at most 100 rows of the rules
 if(length(size(apriori_rules)) == 0){
-  print("No rules were generated")
+  print(
+    paste(
+      "No rules were generated when Minimum Support equals",
+      min_support,
+      "and Minimum confidence equals",
+      min_conf))
 }else{
   as_tibble(DATAFRAME(apriori_rules,separate = TRUE, setStart = "", setEnd = "")) %>%
     print(n = 100, width = 90)

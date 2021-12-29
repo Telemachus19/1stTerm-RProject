@@ -13,6 +13,7 @@ library(hrbrthemes)
 ## Getting the data
 dataPath <- readline("Enter the path to the data set : ")
 grc <- as_tibble(read.csv(dataPath,stringsAsFactors = FALSE))
+grc <- select(grc, -rnd)
 
 ### displaying first 10 rows of our data
 print(grc,n = 10, width = 80)
@@ -139,7 +140,7 @@ apriori_rules <- apriori(tdata, parameter = list(supp = min_support, conf = min_
 
 ## displaying the result
 if(length(size(apriori_rules)) == 0){
-  print("No rules were generated")
+  print(paste("No rules were generated when Minimum Support equals", min_support, "and Minimum confidence equals", min_conf))
 }else{
   as_tibble(DATAFRAME(apriori_rules,separate = TRUE, setStart = "", setEnd = "")) %>%
     print(n = 100, width = 90)
