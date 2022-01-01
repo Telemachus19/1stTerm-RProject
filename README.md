@@ -20,11 +20,11 @@
 
 ### Tony's Tasks
 
-- [ ] Project description
+- [x] Project description
   - [x] Describe Role of members
-  - [ ] What will the program do?
-  - [ ] What the input to the program will be ? 
-  - [ ] What the output from the program will be.
+  - [x] What will the program do?
+  - [x] What the input to the program will be ? 
+  - [x] What the output from the program will be.
   - [x] Full Description of data set
 
 Project Deadline : 25/12/2021
