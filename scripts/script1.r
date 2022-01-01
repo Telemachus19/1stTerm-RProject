@@ -97,7 +97,9 @@ CityandTotalspending<- ggplot(C_Vs_To,aes(city,totalspending)) +
   geom_segment( aes(xend=city,y = 0,yend=totalspending)) +
   scale_y_continuous(n.breaks = 10) +
   geom_point( color="blue", size=9, alpha=.9) +
-  theme_ipsum() +
+  theme_light() +
+  xlab("City") +
+  ylab("Total Spending") + 
   coord_flip() + 
   theme(
     plot.title = element_text(size=16))+

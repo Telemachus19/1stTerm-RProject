@@ -1,5 +1,5 @@
 ---
-title: "Project Report"
+title: "Project Report A_11"
 output: 
   hrbrthemes::ipsum_pdf:
     toc : true
@@ -7,7 +7,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,  dev = "cairo_pdf")
 ```
-# Team members
+# Team A_11
 
 | Name                         | ID          | Department          |
 |------------------------------|-------------|---------------------|
@@ -28,6 +28,7 @@ knitr::opts_chunk$set(echo = TRUE,  dev = "cairo_pdf")
     - [x] Cleaning the data in order to be used in data visualization part 3 & 4
     - [x] Part 3
     - [x] Part 4
+  - [x] Implementation of K-means' Algorithm
 - Antonuose Gerges Nageh
   - [x]  Project description 
     - [x] Describe Role of members
