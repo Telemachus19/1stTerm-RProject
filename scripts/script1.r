@@ -134,14 +134,14 @@ grid.arrange(boxplot_cashCredit,
              barplot_cashCredit,
              barPlotAgeSum,
              CityandTotalspending,
-             Distribution_of_total_spending,ncol=2)
+             Distribution_of_total_spending, ncol =2)
 
 # K-means
 
 ## Getting the number of clusters from the user
 No_of_clusters<-as.numeric(readline("Enter the number of clusters: "))
 
-## Implementing the algorithm using the bult-in function
+## Implementing the algorithm using the built-in function
 Kmeans_Algorithm<-kmeans(grc_kmeans,centers = No_of_clusters)
 grc_kmeans<-mutate(grc_kmeans,cluster=Kmeans_Algorithm$cluster)
 print(grc_kmeans)
