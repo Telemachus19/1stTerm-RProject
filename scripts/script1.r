@@ -8,6 +8,7 @@ library(ggplot2)
 library(forcats)
 library(arules)
 library(hrbrthemes)
+library(gridExtra)
 
 
 ## Getting the data
@@ -63,6 +64,8 @@ barplot_cashCredit <- ggplot(grc,
 print(boxplot_cashCredit)
 print(barplot_cashCredit)
 
+
+
 ## Compare each age and sum of total spending.
 
 ### Before Visualizing
@@ -70,6 +73,11 @@ table(grc_customers$age)
 arrange(grc_customers,desc(total))
 
 ### Visualizing
+grc_age <- select(grc,age,total)
+grc_age <- grc_age %>% 
+  group_by(age) %>%
+  summarise(totalSpending = sum(total))
+grc_age <- mutate(grc_age,age = fct_reorder(as.factor(age),totalSpending))
 barPlotAgeSum<-ggplot(
   grc_age,
   aes(x = age, y = totalSpending)) +
@@ -121,6 +129,13 @@ Distribution_of_total_spending<-ggplot(grc_customers,aes(total)) +
 summary(grc_customers)
 print(Distribution_of_total_spending)
 
+# Dashboard
+grid.arrange(boxplot_cashCredit,
+             barplot_cashCredit,
+             barPlotAgeSum,
+             CityandTotalspending,
+             Distribution_of_total_spending,ncol=2)
+
 # K-means
 
 ## Getting the number of clusters from the user
@@ -142,7 +157,10 @@ apriori_rules <- apriori(tdata, parameter = list(supp = min_support, conf = min_
 
 ## displaying the result
 if(length(size(apriori_rules)) == 0){
-  print(paste("No rules were generated when Minimum Support equals", min_support, "and Minimum confidence equals", min_conf))
+  print(paste("No rules were generated when Minimum Support equals",
+              min_support,
+              "and Minimum confidence equals",
+              min_conf))
 }else{
   as_tibble(DATAFRAME(apriori_rules,separate = TRUE, setStart = "", setEnd = "")) %>%
     print(n = 100, width = 90)

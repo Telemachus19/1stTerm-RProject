@@ -94,17 +94,18 @@ The second thing is that we will prepare data for k-means and apriori algorithms
 - We make the data frame suitable for k-means.
     - By sub-setting the data frame created using only the age and total columns
 - We make the data suitable for apriori's algorithm by
-    - Splitting the transactions'e entries into separate items and transforming it into a transactions object
+    - Splitting the transactions's entries into separate items and transforming it into a transactions object
 
 ## importing the library we are going to use
 
 
-```{r importing the library me, message=FALSE, warning=FALSE}
+```{r importing the libraries, message=FALSE, warning=FALSE}
 library(dplyr)
 library(ggplot2)
 library(forcats)
 library(arules)
 library(hrbrthemes)
+library(gridExtra)
 ```
 
 ## Reading the data and checking the first 10 rows of it
